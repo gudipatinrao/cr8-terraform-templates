@@ -8,7 +8,7 @@ variable "port" {
 }
 
 variable "resource_group" {
-  default = "Default"
+  default = "narasimha-rg"
 }
 variable "region" {
   default = "us-south"
