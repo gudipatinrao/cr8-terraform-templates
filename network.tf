@@ -46,30 +46,30 @@ resource "ibm_is_security_group_rule" "iac_app_security_group_rule_all_outbound"
   direction = "outbound"
 }
 
-resource "ibm_is_vpn_gateway" "iac_app_vpn_gateway" {
-  name   = "${var.project_name}-${var.environment}-vpn"
-  subnet = ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block
-  resource_group = data.ibm_resource_group.group.id
-}
-
-resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection" {
-  name          = "${var.project_name}-${var.environment}-vpn-gw"
-
-  vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway.id
-  peer_address  = ibm_is_vpn_gateway.iac_app_vpn_gateway.public_ip_address
-
-  preshared_key = "VPNDemoPassword"
-
-  local_cidrs   = [ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block]
-  peer_cidrs    = [ibm_is_subnet.iac_app_subnet[1].ipv4_cidr_block]
-}
-
-//resource "ibm_is_public_gateway" "pgw" {
-//  count = local.max_size
-//  name  = "${var.project_name}-${var.environment}-pgw-${format("%02s", count.index)}"
-//  vpc   = ibm_is_vpc.iac_app_vpc.id
-//  zone  = var.vpc_zone_names[count.index]
+//resource "ibm_is_vpn_gateway" "iac_app_vpn_gateway" {
+//  name   = "${var.project_name}-${var.environment}-vpn"
+//  subnet = ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block
+//  resource_group = data.ibm_resource_group.group.id
 //}
+
+//resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection" {
+  //name          = "${var.project_name}-${var.environment}-vpn-gw"
+
+ // vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway.id
+ // peer_address  = ibm_is_vpn_gateway.iac_app_vpn_gateway.public_ip_address
+
+ // preshared_key = "VPNDemoPassword"
+
+ // local_cidrs   = [ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block]
+ // peer_cidrs    = [ibm_is_subnet.iac_app_subnet[1].ipv4_cidr_block]
+//}
+
+resource "ibm_is_public_gateway" "pgw" {
+  count = local.max_size
+  name  = "${var.project_name}-${var.environment}-pgw-${format("%02s", count.index)}"
+  vpc   = ibm_is_vpc.iac_app_vpc.id
+  zone  = var.vpc_zone_names[count.index]
+}
 
 // resource "ibm_is_floating_ip" "iac_app_floating_ip" {
 //   name   = "${var.project_name}-${var.environment}-ip-${format("%02s", count.index)}"
