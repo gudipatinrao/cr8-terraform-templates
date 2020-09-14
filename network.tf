@@ -8,6 +8,7 @@ resource "ibm_is_subnet" "iac_app_subnet" {
   zone                     = var.vpc_zone_names[count.index]
   vpc                      = ibm_is_vpc.iac_app_vpc.id
   total_ipv4_address_count = 16
+  public_gateway           = element(ibm_is_public_gateway.pgw.*.id, count.index)
   resource_group           = data.ibm_resource_group.group.id
 }
 
