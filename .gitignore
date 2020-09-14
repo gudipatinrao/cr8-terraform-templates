@@ -41,5 +41,5 @@ logs
 crash.log
 workspace.json
 workspace.tmpl.json
-cr8_id_rsa.pub
-cr8_id_rsa
+schematic_test
+schematic_test.pub
