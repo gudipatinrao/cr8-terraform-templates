@@ -50,13 +50,13 @@ resource "ibm_is_security_group_rule" "iac_app_security_group_rule_all_outbound"
 resource "ibm_is_vpn_gateway" "iac_app_vpn_gateway" {
   count = local.max_size
   name   = "${var.project_name}-${var.environment}-vpn"
-  subnet = ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block
+  subnet = ibm_is_subnet.iac_app_subnet[0].id
   resource_group = data.ibm_resource_group.group.id
 }
 
 resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection" {
   name          = "${var.project_name}-${var.environment}-vpn-gw"
-  vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway.id
+  vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway[count.index].id
   peer_address  = ibm_is_vpn_gateway.iac_app_vpn_gateway.public_ip_address
   preshared_key = "VPNDemoPassword"
   local_cidrs   = [ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block]
