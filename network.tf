@@ -68,7 +68,7 @@ resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection" {
 //  name  = "${var.project_name}-${var.environment}-pgw-${format("%02s", count.index)}"
 //  vpc   = ibm_is_vpc.iac_app_vpc.id
 //  zone  = var.vpc_zone_names[count.index]
-}
+//}
 
 // resource "ibm_is_floating_ip" "iac_app_floating_ip" {
 //   name   = "${var.project_name}-${var.environment}-ip-${format("%02s", count.index)}"
