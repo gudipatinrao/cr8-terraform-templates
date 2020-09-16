@@ -43,3 +43,5 @@ workspace.json
 workspace.tmpl.json
 schematic_test
 schematic_test.pub
+terraform_key.json
+versions.tf

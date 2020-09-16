@@ -56,8 +56,8 @@ resource "ibm_is_vpn_gateway" "iac_app_vpn_gateway" {
 
 resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection" {
   name          = "${var.project_name}-${var.environment}-vpn-gw"
-  vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway[count.index].id
-  peer_address  = ibm_is_vpn_gateway.iac_app_vpn_gateway[count,index].id
+  vpn_gateway   = ibm_is_vpn_gateway.iac_app_vpn_gateway[0].id
+  peer_address  = ibm_is_vpn_gateway.iac_app_vpn_gateway[1].id
   preshared_key = "VPNDemoPassword"
   local_cidrs   = [ibm_is_subnet.iac_app_subnet[0].ipv4_cidr_block]
   peer_cidrs    = [ibm_is_subnet.iac_app_subnet[1].ipv4_cidr_block]
